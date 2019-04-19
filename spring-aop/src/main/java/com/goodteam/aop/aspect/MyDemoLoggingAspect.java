@@ -2,6 +2,7 @@ package com.goodteam.aop.aspect;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -12,10 +13,18 @@ public class MyDemoLoggingAspect {
 
 	// start with @Befor advice
 
-//	@Before("execution(public void add*())")
-	@Before("execution(* com.goodteam.aop.dao.*.*(..))")
-	public void beforAddAccountAdvice() {
+	// declare pointcut declaration
+	@Pointcut("execution(* com.goodteam.aop.dao.*.*(..))")
+	private void forDaoPackage() {
+	}
 
+	@Before("forDaoPackage()")
+	public void beforAddAccountAdvice() {
 		System.out.println("\n======>>> Executing @Before advice on addAccount()");
+	}
+
+	@Before("forDaoPackage()")
+	public void performApiAnalytics() {
+		System.out.println("\n======>>> Performing API analytics");
 	}
 }
