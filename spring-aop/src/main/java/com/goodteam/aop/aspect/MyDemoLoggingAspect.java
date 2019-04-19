@@ -1,6 +1,9 @@
 package com.goodteam.aop.aspect;
 
+import java.util.List;
+
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -14,29 +17,17 @@ import com.goodteam.aop.Account;
 @Order(2)
 public class MyDemoLoggingAspect {
 
-	// this is where we add all of our related advice for logging
+	// add a new advice for @AfterReturning on the findAccounts method
+	@AfterReturning(pointcut = "execution(* com.goodteam.aop.dao.AccountDAO.findAccounts(..))", returning = "result")
+	public void afterReturningFindAccountsAdvice(JoinPoint theJoinPoint, List<Account> result) {
 
-	// start with @Befor advice
+		// print out which method we are advising on
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("\n=====>>> Executing @AfterReturning on method: " + method);
 
-	// declare pointcut declaration
-//	@Pointcut("execution(* com.goodteam.aop.dao.*.*(..))")
-//	private void forDaoPackage() {
-//	}
-//
-//	// create pointcut for getter method
-//	@Pointcut("execution(* com.goodteam.aop.dao.*.get*(..))")
-//	private void getter() {
-//	}
-//
-//	// create pointcut for setter method
-//	@Pointcut("execution(* com.goodteam.aop.dao.*.set*(..))")
-//	private void setter() {
-//	}
-//
-//	// create point: include package... exclude getter/setter methods
-//	@Pointcut("forDaoPackage() && !(getter() || setter())")
-//	private void forDaoPackageNoGetterSetter() {
-//	}
+		// print out the result of the method call
+		System.out.println("\n=====>>> result is : " + result);
+	}
 
 	@Before("com.goodteam.aop.aspect.goodTeamAopExpressions.forDaoPackageNoGetterSetter()")
 	public void beforAddAccountAdvice(JoinPoint theJoinPoint) {
