@@ -28,7 +28,7 @@ public class MyDemoLoggingAspect {
 	private void setter() {
 	}
 
-	// create point: include package... exclude getter/setter
+	// create point: include package... exclude getter/setter methods
 	@Pointcut("forDaoPackage() && !(getter() || setter())")
 	private void forDaoPackageNoGetterSetter() {
 	}
