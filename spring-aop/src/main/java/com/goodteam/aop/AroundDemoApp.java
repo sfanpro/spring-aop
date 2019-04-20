@@ -21,6 +21,5 @@ public class AroundDemoApp {
 		System.out.println("Finished");
 
 		context.close();
-
 	}
 }
