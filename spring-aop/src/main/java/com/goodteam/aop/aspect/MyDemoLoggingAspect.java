@@ -41,8 +41,8 @@ public class MyDemoLoggingAspect {
 			// log the exception
 			myLogger.warning(e.getMessage());
 
-			// give user a custom message
-			result = "This is own exception";
+			// rethrow exception
+			throw e;
 		}
 
 		// get end timestamp
