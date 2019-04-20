@@ -18,4 +18,11 @@ public class TrafficFortuneService {
 		// return a fortune service
 		return "Expect Goog morning today!";
 	}
+
+	public String getFotrune(boolean tripWire) {
+		if (tripWire) {
+			throw new RuntimeException("something happened!!!");
+		}
+		return getFotrune();
+	}
 }
